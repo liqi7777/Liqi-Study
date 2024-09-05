@@ -1,0 +1,4 @@
+wsimport -s 客户端所在的项目路径 wsdl的url
+
+例如：wsimport -s  I:\mywork\github\RedisUtil\demo\src\main\java\com\example\webservice\webserviceClient
+                   http://127.0.0.1:8081/services/CxfService?w

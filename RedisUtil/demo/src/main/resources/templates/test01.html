@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="jquery-1.11.3.js"></script>
+<body>
+
+</body>
+<script>
+    var b = "hello";
+    //    $('body').append('<a class="mod" onclick="wfTash(\'+b+\')">查看节点</a>');
+
+    $('body').append('<a class="mod" onclick="wfTash('+b+')">查看节点</a>');
+    var a = '<a class="mod" onclick="wfTash('+b+')">查看节点</a>';
+
+    console.log(a);
+
+    function wfTash(a) {
+        console.log("nihaoa");
+    }
+
+</script>
+</html>
