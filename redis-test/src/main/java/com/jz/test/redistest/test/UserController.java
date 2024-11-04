@@ -10,11 +10,10 @@ import com.jz.iecs.constant.CommonConstant;
 import com.jz.iecs.constant.VehicleConstant;
 import com.jz.iecs.entity.DTO.IecsAivVehicInfoDTO;
 import com.jz.test.redistest.config.redisLock.annoation.Lock4j;
-import com.spatial4j.core.context.SpatialContext;
-import com.spatial4j.core.context.SpatialContextFactory;
-import com.spatial4j.core.distance.DistanceUtils;
-import com.spatial4j.core.shape.Rectangle;
 import lombok.extern.slf4j.Slf4j;
+import org.locationtech.spatial4j.context.SpatialContext;
+import org.locationtech.spatial4j.distance.DistanceUtils;
+import org.locationtech.spatial4j.shape.Rectangle;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +36,7 @@ import java.util.*;
 public class UserController {
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
     private RedisTemplate redisTemplate;
 
 //    @Resource
@@ -55,7 +54,7 @@ public class UserController {
 //        Map<Object, Object> entries = redisTemplate.opsForHash().entries(VehicleConstant.VEHICLE_REAL_TIME_DATA);
 //        LocalDateTime end = LocalDateTime.now();
 //        System.out.println("redis消耗时间：" + Duration.between(start, end).toMillis() + "ms");
-        String isInvokeIecsYtTy = (String)redisTemplate.opsForHash().get(CommonConstant.SYS_PARAMETER, "isInvokeIecsYtTy");
+        String isInvokeIecsYtTy = (String) redisTemplate.opsForHash().get(CommonConstant.SYS_PARAMETER, "isInvokeIecsYtTy");
         System.out.println(isInvokeIecsYtTy);
         return "end";
     }

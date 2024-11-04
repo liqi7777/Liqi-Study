@@ -1,0 +1,19 @@
+@startuml
+start
+:RTG反馈已取消或已完成给IECS;
+
+if (反馈状态？) then (已取消)
+  :RTG取消通知IECS;
+  :IECS通知TOS;
+  :请求TOS的RJMC, moveStatus=3中止任务;
+  :修改IECS数据库指令状态为已取消;
+else (已完成)
+   :RTG已完成通知IECS;
+   :IECS通知TOS;
+   :请求TOS的RJMC, moveStatus=1;
+   :修改IECS数据库指令状态为已完成;
+endif
+  :TOS返回BJML消息中的新任务;
+  :继续走任务下发流程;
+stop
+@enduml

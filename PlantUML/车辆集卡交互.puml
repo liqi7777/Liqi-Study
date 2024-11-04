@@ -1,0 +1,60 @@
+@startuml
+!define RECTANGLE [<<rect>>]
+!define CIRCLE [<<circle>>]
+
+
+skinparam backgroundColor #F5F5F5
+skinparam arrowColor #007BFF
+skinparam participantBorderColor #007BFF
+skinparam participantBackgroundColor #FFFFFF
+skinparam messageColor #007BFF
+skinparam messageFontName Arial
+skinparam messageFontSize 12
+skinparam messageFontStyle bold
+skinparam messageArrowColor #007BFF
+skinparam messageArrowThickness 1
+skinparam messageArrowType #solid
+skinparam messageArrowHeadSize 10
+skinparam messageArrowHeadLineWidth 1
+
+participant 车辆设备 as Vehicle
+participant IECS
+participant RTG
+participant QC
+
+autonumber 1
+
+Vehicle -> IECS: 集卡到位请求
+alt 转发设备 == "RTG"
+    == 车辆集卡交互RTG流程 ==
+    autonumber 2.1
+    group 车辆集卡交互RTG流程
+        IECS -> RTG: 车辆集卡到位请求
+        RTG -> IECS: 车辆集卡到位请求回执
+        loop
+            RTG -> IECS: 集卡引导
+            IECS -> RTG: 集卡引导回执
+            IECS -> Vehicle: 集卡引导
+            Vehicle -> IECS: 请求下次引导
+            IECS -> RTG: 引导转发
+            RTG -> IECS: 集卡引导
+        end
+    end
+else 转发设备 == "QC"
+    == 车辆集卡交互QC流程 ==
+    autonumber 3.1
+    group 车辆集卡交互QC流程
+        IECS -> QC: 车辆集卡到位请求
+        QC -> IECS: 车辆集卡到位请求回执
+        loop
+            QC -> IECS: 集卡引导
+            IECS -> QC: 集卡引导回执
+            IECS -> Vehicle: 集卡引导
+            Vehicle -> IECS: 请求下次引导
+            IECS -> QC: 引导转发
+            QC -> IECS: 集卡引导
+        end
+    end
+end
+
+@enduml

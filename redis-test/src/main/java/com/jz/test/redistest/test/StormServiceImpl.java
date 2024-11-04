@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class StormServiceImpl implements StormService {
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
 //    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 

@@ -63,7 +63,7 @@ public class TsdbExportController {
     private CommonDownLoadUtil commonDownLoadUtil;
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
     private RedisTemplate<String, Object> redisTemplate01;
 //    @Autowired
 //    @Qualifier("redisTemplate02")

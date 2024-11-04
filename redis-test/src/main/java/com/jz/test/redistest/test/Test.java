@@ -1460,6 +1460,28 @@ public class Test {
         System.out.println(vplu);
     }
 
+    @org.junit.Test
+    public void test61() {
+        Long l = 1L;
+        if (l != 0) {
+            System.out.println("hha");
+        } else {
+            System.out.println("heieh");
+        }
+    }
+
+
+
+    @org.junit.Test
+    public void test62() {
+        String cntr01 = String.format("QC可驶离,箱号:%s%s)", "CNTR01", "没有获取到场箱位!");
+        System.out.println(cntr01);
+
+
+    }
+
+
+
 
 }
 

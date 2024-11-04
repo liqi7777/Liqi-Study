@@ -1,0 +1,30 @@
+
+@startuml
+title 视频坐标请求处理时序图
+
+participant VideoCoordinateRequestDTO as DTO
+participant Logger as Log
+participant IECS as ExternalSystem
+participant StreamProcessor as StreamProc
+
+DTO -> StreamProc : getCoordinateList()
+StreamProc --> DTO : coordinateList
+StreamProc -> Log : insertTsdb("VideoCoordinateRequest", machNo, pid.toString(), msg)
+
+alt topicgroup == "RTG"
+    StreamProc -> ExternalSystem : httpRequestPost("/iecsRtg/xhqSendRtgLocation", JSON.toJSONString(videoCoordinateRequestDTO), retryInterval, null)
+    ExternalSystem --> StreamProc : Response
+else topicgroup == "QC"
+    StreamProc -> StreamProc : filterCoordinates(coordinateList)
+    StreamProc --> StreamProc : collect
+    alt !collect.isEmpty()
+        StreamProc -> StreamProc : buildRequestMap()
+        StreamProc -> Log : log.info("记录设备上报异常,调用IECS", JSONObject.toJSONString(reqMap))
+        StreamProc -> ExternalSystem : httpRequestPost("/iecsBusinessException/insertIecsBusinessException", JSONObject.toJSONString(reqMap))
+        ExternalSystem --> StreamProc : Response
+    else
+        StreamProc -> StreamProc : No action needed
+    end
+end
+
+@enduml

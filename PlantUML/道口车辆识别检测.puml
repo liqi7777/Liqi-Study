@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant 道口摄像头
+participant       SUPPLIER
+participant       IECS
+
+database    ORACLE
+
+autonumber
+
+道口摄像头 -> SUPPLIER: 扫描到的外集卡信息
+SUPPLIER -> IECS: 外集卡信息传递IECS
+IECS -> ORACLE: 外集卡信息入库 IECS_crossing_Report表
+IECS -> ORACLE: 外集卡信息入库 IECS_OTK_OPERATE_INFO表
+
+@enduml

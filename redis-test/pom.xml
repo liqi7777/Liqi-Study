@@ -35,6 +35,12 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+
+        <!-- OSGeo Repository for GeoTools dependencies -->
+        <repository>
+            <id>osgeo</id>
+            <url>https://repo.osgeo.org/repository/release/</url>
+        </repository>
     </repositories>
 
     <properties>
@@ -48,6 +54,8 @@
         <spring-cloud.version>Greenwich.SR5</spring-cloud.version>
         <spring-cloud-alibaba-dependencies.version>2.1.1.RELEASE</spring-cloud-alibaba-dependencies.version>
         <nacos.client.version>1.4.2</nacos.client.version>
+        <redisson.version>3.15.1</redisson.version>
+
 
     </properties>
     <dependencyManagement>
@@ -84,6 +92,25 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
+        </dependency>
+
+        <!-- 基于redis的分布式锁 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>${redisson.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.redisson</groupId>
+                    <artifactId>redisson-spring-data-24</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-data-21</artifactId>
+            <version>${redisson.version}</version>
         </dependency>
 
         <dependency>
@@ -279,11 +306,41 @@
             <version>2.0.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.locationtech.spatial4j/spatial4j -->
         <dependency>
-            <groupId>com.spatial4j</groupId>
+            <groupId>org.locationtech.spatial4j</groupId>
             <artifactId>spatial4j</artifactId>
-            <version>0.5</version>
+            <version>0.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.osgeo/proj4j -->
+        <dependency>
+            <groupId>org.osgeo</groupId>
+            <artifactId>proj4j</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ch.hsr/geohash -->
+        <dependency>
+            <groupId>ch.hsr</groupId>
+            <artifactId>geohash</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.geotools/gt-main -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>22-RC</version>
+        </dependency>
+
+
+
 
         <!-- 添加 XJar 依赖 -->
         <dependency>

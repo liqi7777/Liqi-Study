@@ -1,0 +1,87 @@
+@startuml
+title AIV装船空箱箱区作业流程图
+
+'skinparam backgroundColor #AAFFFF
+skinparam activity {
+StartColor red
+BarColor SaddleBrown
+EndColor Silver
+BackgroundColor Peru
+BackgroundColor<< Begin >> Olive
+BorderColor Peru
+'FontName Impact
+}
+
+start
+
+:装船全域流程开始;
+  :处理装船逻辑;
+  if (指令状态是T?) then (yes)
+    :装船原流程车辆指令处理完成;
+    :进入装船T空箱箱区业务处理;
+    fork
+      :未完成的装船车辆指令第一段;
+      if (第一段未放箱?) then (yes)
+        :修改途径点和终点为空箱临停点;
+        :修改车辆车辆临停标记为 TMP_WAIT_P;
+      else if (第一段已放箱?) then (yes)
+        if (一车一箱?) then (yes)
+          :查询RTG指令;
+          if (单箱是否可驶离?) then (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为 TMP_WAIT_P;
+          else
+          endif
+        else if (一车两箱?) then (yes)
+          if (第一箱已可驶离?) then (yes)
+            if (第二箱未放或未可驶离?) then (yes)
+              :修改终点为空箱临停点;
+              :修改车辆车辆临停标记为 TMP_WAIT_P;
+            else
+            endif
+          else (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为 TMP_WAIT_P;
+          endif
+        else
+        end if
+      else
+      end if
+    end fork
+  else if (指令状态是L?) then (yes)
+    :装船原流程车辆指令处理完成;
+    :进入装船L空箱箱区业务处理;
+    fork
+      :未完成的装船车辆指令第一段;
+      if (第一段未放箱?) then (yes)
+        :修改途径点和终点为空箱临停点;
+        :修改车辆车辆临停标记为 TMP_WAIT_P;
+      else if (第一段已放箱?) then (yes)
+        if (一车一箱?) then (yes)
+          :查询RTG指令;
+          if (单箱是否可驶离?) then (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为 TMP_WAIT_P;
+          else
+          endif
+        else if (一车两箱?) then (yes)
+          if (第一箱已可驶离?) then (yes)
+            if (第二箱未放或未可驶离?) then (yes)
+              :修改终点为空箱临停点;
+              :修改车辆车辆临停标记为 TMP_WAIT_P;
+            else
+            endif
+          else (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为 TMP_WAIT_P;
+          endif
+        else
+        end if
+      else
+      end if
+    end fork
+  else
+  endif
+
+stop
+@enduml

@@ -2,16 +2,14 @@ package com.jz.test.redistest.test.localdatetime;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.codec.Base64;
+import cn.hutool.crypto.SecureUtil;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.springframework.util.Base64Utils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -78,7 +76,7 @@ public class LocalDateTimeTest {
 
     @Test
     public void test04() {
-        String str="0001-01-01 00:00:00";
+        String str = "0001-01-01 00:00:00";
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime parse = LocalDateTime.parse(str, dateTimeFormatter);
         System.out.println(parse);
@@ -96,7 +94,7 @@ public class LocalDateTimeTest {
     }
 
     @Test
-    public void test06(){
+    public void test06() {
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
 
@@ -111,7 +109,7 @@ public class LocalDateTimeTest {
 
 
     @Test
-    public void test07(){
+    public void test07() {
         String a = null;
         //5Lym5a625piv5LiA5Liq6Z2e5bi46ZW/55qE5a2X56ym5Liy
 
@@ -123,6 +121,50 @@ public class LocalDateTimeTest {
         List<String> strings = Lists.<String>newArrayList("a", "b", "c");
         List<Object> objects = BeanUtil.copyToList(strings, Object.class);
         System.out.println(objects);
+
+    }
+
+    @Test
+    public void test08() {
+        LocalDateTime of = LocalDateTime.of(LocalDate.now().plusDays(-1), LocalTime.of(20, 0, 0));
+        System.out.println(of);
+        LocalDateTime endTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 59, 59));
+        System.out.println(endTime);
+    }
+
+    private static String TimestampToUTC(Long dataapiTimestamp) {
+        // 将时间戳转换为Instant对象
+        Instant instant = Instant.ofEpochMilli(dataapiTimestamp);
+        // 将Instant对象转换为UTC时间
+        ZonedDateTime utcTime = instant.atZone(ZoneId.of("UTC"));
+        // 格式化UTC时间为字符串
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedUTC = utcTime.format(formatter);
+        // 输出结果
+        return formattedUTC;
+    }
+
+    @Test
+    public void test09() {
+        long dataapiTimestamp = 1728538489000L;
+
+        // LocalDateTime utcLocalDateTime = Instant.ofEpochMilli(dataapiTimestamp).atZone(ZoneOffset.UTC).toLocalDateTime();
+        // long milliseconds = utcLocalDateTime.toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+
+        // String XTimestamp = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")
+        //         .format(Instant.ofEpochMilli(dataapiTimestamp).atZone(ZoneOffset.UTC)
+        //                 .toLocalDateTime());
+
+        String XTimestamp = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS").format(LocalDateTime.ofInstant(Instant.ofEpochMilli(dataapiTimestamp), ZoneId.systemDefault()));
+
+        String XSequenceNo = XTimestamp + "00002";
+
+        String token = TimestampToUTC(dataapiTimestamp).replaceAll("\\s+", "41538219427").replaceAll("-|:", "");
+
+        String md5Token = SecureUtil.md5(token).toUpperCase();
+
+        // System.out.println(milliseconds + "," + dataapiTimestamp + "," + XTimestamp + "," + XSequenceNo + "," + md5Token);
+        System.out.println(dataapiTimestamp + "," + XTimestamp + "," + XSequenceNo + "," + md5Token);
 
     }
 

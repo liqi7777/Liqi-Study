@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title 内集卡心跳时序图
+
+autonumber
+
+5GAPP -> IECS: 心跳上报
+IECS --> 5GAPP: 心跳上报回执
+
+IECS -> Redis: 保存内集卡心跳状态
+
+@enduml

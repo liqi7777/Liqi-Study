@@ -1,0 +1,159 @@
+@startuml
+title AIV转堆空箱箱区作业流程图
+
+skinparam activity {
+StartColor red
+BarColor SaddleBrown
+EndColor Silver
+BackgroundColor Peru
+BackgroundColor<< Begin >> Olive
+BorderColor Peru
+'FontName Impact
+}
+
+start
+
+:全域流程开始;
+
+if (指令状态是T?) then (yes)
+  :转堆原流程车辆指令处理完成;
+  :进入转堆T空箱箱区业务处理;
+
+  fork
+    if (转堆车辆指令第一段未结束?) is (yes) then
+      :处理第一段转堆空箱业务逻辑;
+
+      if (第一段未放箱?) then (yes)
+        :修改途径点和终点为空箱临停点;
+        :修改车辆车辆临停标记为TMP_WAIT_P;
+      else if (第一段已放箱?) then (yes)
+        if (一车一箱?) then (yes)
+          :查询RTG指令;
+
+          if (单箱是否可驶离?) then (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          else
+            :处理其他情况;
+          endif
+        else if (一车两箱?) then (yes)
+          if (第一箱发箱已可驶离?) is (yes) then
+            if (第二箱未放或未发箱可驶离?) is (yes) then
+              :修改终点为空箱临停点;
+              :修改车辆车辆临停标记为TMP_WAIT_P;
+            else
+              :处理其他情况;
+            endif
+          else (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          endif
+        else
+          :处理其他情况;
+        end if
+      else
+        :处理其他情况;
+      end if
+    else if (转堆车辆指令第一段已结束,第二段未结束?) then (yes)
+      :处理第二段转堆空箱业务逻辑;
+
+      if (一车一箱?) then (yes)
+        :查询收箱RTG指令;
+
+        if (单箱是否可驶离?) then (no)
+          :修改途径点和终点为空箱临停点;
+          :修改车辆车辆临停标记为TMP_WAIT_P;
+        else
+          :处理其他情况;
+        endif
+      else if (一车两箱?) then (yes)
+        if (第一箱收箱已可驶离?) is (yes) then
+          if (第二箱未放或未收箱可驶离?) is (yes) then
+            :修改终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          else
+            :处理其他情况;
+          endif
+        else (no)
+          :修改途径点和终点为空箱临停点;
+          :修改车辆车辆临停标记为TMP_WAIT_P;
+        endif
+      else
+        :处理其他情况;
+      end if
+    endif
+  end fork
+else if (指令状态是L?) then (yes)
+  :转堆原流程车辆指令处理完成;
+  :进入转堆L空箱箱区业务处理;
+
+  fork
+    if (转堆车辆指令第一段未结束?) is (yes) then
+      :处理第一段转堆空箱业务逻辑;
+
+      if (第一段未放箱?) then (yes)
+        :修改途径点和终点为空箱临停点;
+        :修改车辆车辆临停标记为TMP_WAIT_P;
+      else if (第一段已放箱?) then (yes)
+        if (一车一箱?) then (yes)
+          :查询RTG指令;
+
+          if (单箱是否可驶离?) then (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          else
+            :处理其他情况;
+          endif
+        else if (一车两箱?) then (yes)
+          if (第一箱发箱已可驶离?) is (yes) then
+            if (第二箱未放或未发箱可驶离?) is (yes) then
+              :修改终点为空箱临停点;
+              :修改车辆车辆临停标记为TMP_WAIT_P;
+            else
+              :处理其他情况;
+            endif
+          else (no)
+            :修改途径点和终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          endif
+        else
+          :处理其他情况;
+        end if
+      else
+        :处理其他情况;
+      end if
+    else if (转堆车辆指令第一段已结束,第二段未结束?) then (yes)
+      :处理第二段转堆空箱业务逻辑;
+
+      if (一车一箱?) then (yes)
+        :查询收箱RTG指令;
+
+        if (单箱是否可驶离?) then (no)
+          :修改途径点和终点为空箱临停点;
+          :修改车辆车辆临停标记为TMP_WAIT_P;
+        else
+          :处理其他情况;
+        endif
+      else if (一车两箱?) then (yes)
+        if (第一箱收箱已可驶离?) is (yes) then
+          if (第二箱未放或未收箱可驶离?) is (yes) then
+            :修改终点为空箱临停点;
+            :修改车辆车辆临停标记为TMP_WAIT_P;
+          else
+            :处理其他情况;
+          endif
+        else (no)
+          :修改途径点和终点为空箱临停点;
+          :修改车辆车辆临停标记为TMP_WAIT_P;
+        endif
+      else
+        :处理其他情况;
+      end if
+    endif
+  end fork
+else
+  :处理其他指令状态;
+endif
+
+stop
+@enduml

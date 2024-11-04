@@ -43,11 +43,11 @@ import static org.junit.Assert.*;
 public class UserControllerTest {
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
     private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
     private RedisTemplate redisTemplate01;
 
     @Test
@@ -193,6 +193,7 @@ public class UserControllerTest {
 
 //        Object lqii = redisTemplate01.opsForList().index("liqi", 0);
 //        System.out.println(lqii.toString());
+
 
 
     }

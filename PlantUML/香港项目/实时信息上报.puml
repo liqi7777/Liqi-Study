@@ -1,0 +1,11 @@
+@startuml
+actor RTG
+participant IECS
+participant Redis
+participant "TOS5.3接口" as TOS
+
+RTG -> IECS: 上报定位信息
+IECS -> Redis: 存入定位信息
+IECS -> TOS: 通过TOS5.3接口发送实时信息
+
+@enduml

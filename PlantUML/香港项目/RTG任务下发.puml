@@ -1,0 +1,43 @@
+@startuml
+start
+:xxjJob定时每30秒获取任务;
+:筛选心跳正常,通讯正常,出勤的RTG;
+:一个RTG一个线程;
+if (判断当前RTG有未完成任务？) then (是)
+  :不继续后续流程;
+  stop
+else (否)
+  :调用TOS5.1接口获取任务;
+  if (获取到任务？) then (是)
+    :判断任务与箱区其他RTG任务是否冲突;
+    if (存在冲突？) then (是)
+      :RTG不可达或有碰撞风险;
+      :调用TOS5.2接口中止任务;
+      :TOS的BJML继续返回任务;
+      :继续获取下一个任务;
+      :调用TOS5.1接口获取任务,判断是否与其他RTG任务存在冲突;
+      stop
+    else (否)
+      :下发任务给单机RTG;
+      :单机RTG同步响应已接收;
+      :单机RTG异步反馈任务执行中;
+      :单机RTG异步反馈任务集装箱已锁定;
+      if (单机RTG反馈取消?) then (是)
+        :IECS任务取消流程;
+        :通知TOS,调用RJMC接口中止任务;
+        :TOS的BJML继续返回任务, 继续任务判断下发流程;
+      else if (单机RTG反馈已完成?) then (是)
+        :IECS任务完成流程;
+        :通知TOS，调用RJMC接口完成任务;
+        :TOS的BJML继续返回任务, 继续任务判断下发流程;
+      else (否)
+      stop
+      endif
+      stop
+    endif
+  else (否)
+    :无任务，结束流程, 等待下一次定时;
+    stop
+  endif
+endif
+@enduml

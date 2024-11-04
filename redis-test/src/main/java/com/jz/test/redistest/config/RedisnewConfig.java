@@ -33,8 +33,8 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Configuration
-@EnableCaching
+// @Configuration
+// @EnableCaching
 public class RedisnewConfig {
 
 
@@ -101,108 +101,38 @@ public class RedisnewConfig {
 //    }
 
 
-    @Bean(name = "redisTemplate01")
-//    @Scope(value = "prototype")
-    @ConditionalOnMissingBean(
-            name = {"redisTemplate"}
-    )
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
-        RedisSerializer protoStuffRedisSerializer = new GenericJackson2JsonRedisSerializer();
-//        ProtoStuffRedisSerializer protoStuffRedisSerializer = new ProtoStuffRedisSerializer();
-//        ProtostuffSerializer protoStuffRedisSerializer = new ProtostuffSerializer();
-        RedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        RedisTemplate<String, Object> template = new RedisTemplate();
-        LettuceConnectionFactory factory = (LettuceConnectionFactory) redisConnectionFactory;
-        factory.setValidateConnection(true);
-        template.setConnectionFactory(factory);
-        template.setKeySerializer(stringRedisSerializer);
-        template.setValueSerializer(protoStuffRedisSerializer);
-        template.setHashKeySerializer(stringRedisSerializer);
-        template.setHashValueSerializer(protoStuffRedisSerializer);
-        template.afterPropertiesSet();
-//        redisConnectionFactory.setShareNativeConnection(false);
-        return template;
-    }
+//     @Bean(name = "redisTemplate01")
+//     @ConditionalOnMissingBean(
+//             name = {"redisTemplate"}
+//     )
+//     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
+//         RedisSerializer protoStuffRedisSerializer = new GenericJackson2JsonRedisSerializer();
+// //        ProtoStuffRedisSerializer protoStuffRedisSerializer = new ProtoStuffRedisSerializer();
+// //        ProtostuffSerializer protoStuffRedisSerializer = new ProtostuffSerializer();
+//         RedisSerializer stringRedisSerializer = new StringRedisSerializer();
+//         RedisTemplate<String, Object> template = new RedisTemplate();
+//         LettuceConnectionFactory factory = (LettuceConnectionFactory) redisConnectionFactory;
+//         factory.setValidateConnection(true);
+//         template.setConnectionFactory(factory);
+//         template.setKeySerializer(stringRedisSerializer);
+//         template.setValueSerializer(protoStuffRedisSerializer);
+//         template.setHashKeySerializer(stringRedisSerializer);
+//         template.setHashValueSerializer(protoStuffRedisSerializer);
+//         template.afterPropertiesSet();
+// //        redisConnectionFactory.setShareNativeConnection(false);
+//         return template;
+//     }
 
-    /**
-     * 配置lettuce连接池
-     *
-     * @return
-     */
-    @Bean
-    @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
-    public GenericObjectPoolConfig redisPool() {
-        return new GenericObjectPoolConfig<>();
-    }
+    // /**
+    //  * 配置lettuce连接池
+    //  *
+    //  * @return
+    //  */
+    // @Bean
+    // @ConfigurationProperties(prefix = "spring.redis.lettuce.pool")
+    // public GenericObjectPoolConfig redisPool() {
+    //     return new GenericObjectPoolConfig<>();
+    // }
 
-//    /**
-//     * 配置第一个数据源的连接工厂
-//     * 这里注意：需要添加@Primary 指定bean的名称，目的是为了创建两个不同名称的LettuceConnectionFactory
-//     *
-//     * @return
-//     */
-//    @Bean("dataFactory1")
-//    @Primary
-//    public LettuceConnectionFactory dataFactory1(@Value("${spring.redis.host}") String host,
-//                                                 @Value("${spring.redis.port}") int port,
-//                                                 @Value("${spring.redis.password}") String password,
-//                                                 GenericObjectPoolConfig config) {
-//        RedisStandaloneConfiguration redisDataConfig = new RedisStandaloneConfiguration(host, port);
-//        if (StrUtil.isNotBlank(password)) {
-//            redisDataConfig.setPassword(RedisPassword.of(password));
-//        }
-//        LettuceClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder().poolConfig(config).build();
-//        LettuceConnectionFactory factory = new LettuceConnectionFactory(redisDataConfig, clientConfiguration);
-//        return factory;
-//    }
-//
-//    //第二个数据源的连接工厂
-//    @Bean("dataFactory2")
-//    public LettuceConnectionFactory dataFactory2(@Value("${spring.redis2.host}") String host,
-//                                                 @Value("${spring.redis2.port}") int port,
-//                                                 @Value("${spring.redis2.password}") String password,
-//                                                 GenericObjectPoolConfig config) {
-//        RedisStandaloneConfiguration redisDataConfig = new RedisStandaloneConfiguration(host, port);
-//        redisDataConfig.setPassword(RedisPassword.of(password));
-//        LettuceClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder().poolConfig(config).build();
-//        LettuceConnectionFactory factory = new LettuceConnectionFactory(redisDataConfig, clientConfiguration);
-//        return factory;
-//    }
-//
-//
-//    /**
-//     * 配置第一个数据源的RedisTemplate
-//     * 注意：这里指定使用名称=factory 的 RedisConnectionFactory
-//     * 并且标识第一个数据源是默认数据源 @Primary
-//     *
-//     * @param dataFactory
-//     * @return
-//     */
-//    @Bean("redisTemplate01")
-//    @Primary
-//    public RedisTemplate<String, Object> redisDataTemplate(@Qualifier("dataFactory1") RedisConnectionFactory dataFactory) {
-//        return getRedisDataTemplate(dataFactory);
-//    }
-//
-//    //第二个数据源
-//    @Bean("redisTemplate02")
-//    public RedisTemplate<String, Object> redisConcurrencyTemplate(@Qualifier("dataFactory2") RedisConnectionFactory dataFactory2) {
-//        return getRedisDataTemplate(dataFactory2);
-//    }
-//
-//    /**
-//     * @return
-//     */
-//    private RedisTemplate<String, Object> getRedisDataTemplate(RedisConnectionFactory factory) {
-//        RedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
-//        RedisTemplate<String, Object> template = new RedisTemplate<>();
-//        template.setConnectionFactory(factory);
-//        template.setKeySerializer(new StringRedisSerializer());
-//        template.setValueSerializer(jackson2JsonRedisSerializer);
-//        template.setHashKeySerializer(new StringRedisSerializer());
-//        template.setHashValueSerializer(jackson2JsonRedisSerializer);
-//        template.afterPropertiesSet();
-//        return template;
-//    }
 
 }

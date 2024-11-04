@@ -39,7 +39,7 @@ public class DynamicDataSourceController {
     private ConfigInfoMapper configInfoMapper;
 
     @Autowired
-    @Qualifier("redisTemplate01")
+    // @Qualifier("redisTemplate01")
     private RedisTemplate<String, Object> redisTemplate01;
 
 

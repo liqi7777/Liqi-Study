@@ -10,15 +10,8 @@ spring:
   cache:
     type: redis
 #  redis:
-#    cluster:
-#      nodes:
-#        - 10.140.20.151:6379
-#        - 10.140.20.152:6379
-#        - 10.140.20.153:6379
-#        - 10.140.20.154:6379
-#        - 10.140.20.155:6379
-#        - 10.140.20.156:6379
-#      max-redirects: 3
+#    host: 122.112.220.88
+#    port: 31079
 #    timeout: 5000
 #    password: admin
 #    lettuce:
@@ -28,28 +21,9 @@ spring:
 #        max-idle: 1000
 #        min-idle: 100
   redis:
-    host: 122.112.220.88
-    port: 31079
-    timeout: 5000
-    password: admin
-    lettuce:
-      pool:
-        max-active: -1
-        max-wait: -1
-        max-idle: 1000
-        min-idle: 100
-
-  redis2:
-    host: 10.140.20.151
-    port: 6379
-    timeout: 5000
-    password: admin
-    lettuce:
-      pool:
-        max-active: -1
-        max-wait: -1
-        max-idle: 1000
-        min-idle: 100
+    redisson:
+      # 配置集群模式
+      file: classpath:redisson-dev.yml
 
   profiles:
     include: dynamicMysql

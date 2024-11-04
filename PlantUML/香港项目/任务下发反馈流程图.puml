@@ -1,0 +1,27 @@
+@startuml
+start
+:RTG收到任务;
+:RTG单机反馈执行中;
+:修改IECS数据库指令为执行中;
+
+:RTG抓到箱;
+:RTG单机反馈集装箱已锁定;
+:请求TOS的RJMC, moveStatus=0;
+:通知TOS集装箱已锁定;
+:修改IECS数据库指令为集装箱已锁定;
+
+if (RTG已完成任务？) then (是)
+  :RTG已完成通知IECS;
+  :IECS通知TOS;
+  :请求TOS的RJMC, moveStatus=1;
+  :修改IECS数据库指令状态为已完成;
+else (否)
+  :RTG取消通知IECS;
+  :IECS通知TOS;
+  :请求TOS的RJMC, moveStatus=3中止任务;
+  :修改IECS数据库指令状态为已取消;
+endif
+  :TOS返回BJML消息中的新任务;
+  :继续走任务下发流程;
+stop
+@enduml

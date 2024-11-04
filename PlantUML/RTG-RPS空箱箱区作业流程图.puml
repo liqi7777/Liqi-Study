@@ -1,0 +1,39 @@
+@startuml
+title RTG-RPS空箱箱区作业流程图
+'skinparam backgroundColor #AAFFFF
+skinparam activity {
+StartColor red
+BarColor SaddleBrown
+EndColor Silver
+BackgroundColor Peru
+BackgroundColor<< Begin >> Olive
+BorderColor Peru
+'FontName Impact
+}
+
+start
+partition 全域流程 {
+  :装卸转堆空箱流程处理完成;
+  :下发车辆指令;
+}
+partition AIV车辆流程 {
+  :车辆到达空箱临停点;
+  :通知RPS已到位;
+}
+partition RTG-RPS {
+  :司机操作RPS已到位;
+  :AIV车辆到达作业位置;
+  :轮胎吊作业;
+  :RTG-RPS发可驶离;
+  if (一车一箱?) is (yes) then
+    :车辆可驶离;
+    :空箱流程结束;
+  else if (一车两箱?) is (yes) then
+    :车辆可驶离到达第二箱临停点;
+    :继续已到位,发驶离流程;
+    :空箱流程结束;
+  else (no)
+  endif
+}
+end
+@enduml
