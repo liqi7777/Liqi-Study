@@ -198,7 +198,7 @@ public class Test {
     @org.junit.Test
     public void test01() {
         Set<String> rowSet = Sets.newTreeSet(Lists.newArrayList("1", "2", "4", "5", "6"));
-        Set<String> allRowSet = Sets.newTreeSet(Lists.newArrayList("1", "2", "3", "4","7"));
+        Set<String> allRowSet = Sets.newTreeSet(Lists.newArrayList("1", "2", "3", "4", "7"));
 
         Sets.SetView<String> difference = Sets.difference(allRowSet, rowSet);
         System.out.println(difference.isEmpty());
@@ -289,7 +289,6 @@ public class Test {
 //        }
 
         testhehe1();
-
 
 
     }
@@ -1351,7 +1350,7 @@ public class Test {
         System.out.println(aLong == 3);
 
         String s = "haha";
-        Object s11 ="haha";
+        Object s11 = "haha";
         System.out.println(s.equals(s11));
     }
 
@@ -1408,7 +1407,7 @@ public class Test {
 //        System.out.println(equals);
 
         HashMap<String, String> stringStringHashMap = Maps.<String, String>newHashMap();
-        stringStringHashMap.put("1","b");
+        stringStringHashMap.put("1", "b");
         System.out.println(stringStringHashMap.get(1L));
 
         Object o = null;
@@ -1418,7 +1417,7 @@ public class Test {
     }
 
     @org.junit.Test
-    public void test59(){
+    public void test59() {
         int number = 123456;
 
         String s = Convert.digitToChinese(123456);
@@ -1471,17 +1470,44 @@ public class Test {
     }
 
 
-
     @org.junit.Test
     public void test62() {
         String cntr01 = String.format("QC可驶离,箱号:%s%s)", "CNTR01", "没有获取到场箱位!");
         System.out.println(cntr01);
 
+        boolean b = org.apache.commons.lang3.StringUtils.equalsAny("password", "password", "iecs_app");
+        System.out.println(b);
+    }
+
+
+    @org.junit.Test
+    public void test63() {
+        LocalDate yesterday = LocalDateTime.now().plusDays(-1).toLocalDate();
+        LocalDateTime icesDateTime = LocalDateTime.of(yesterday, LocalTime.MIN);
+        System.out.println(icesDateTime);
+        LocalDateTime icesDateTimeMax = LocalDateTime.of(yesterday, LocalTime.MAX);
+        System.out.println(icesDateTimeMax);
+
+
+        int year = icesDateTime.getYear();
+        int monthValue = icesDateTime.getMonthValue();
+        int dayOfMonth = icesDateTime.getDayOfMonth();
+        System.out.println(year + "," + monthValue + "," + dayOfMonth);
+
+
+        long l = Duration.between(LocalDateTime.now().plusMinutes(-30), LocalDateTime.now()).toMillis()/1000;
+        System.out.println(l);
 
     }
 
 
-
-
+    @org.junit.Test
+    public void test64() {
+        User user = new User();
+        user.setAddress("Test");
+        log.info("{}", JSONObject.toJSONString(user));
+        User user1 = JSONObject.parseObject("{\"Address\":\"Test\"}", User.class);
+        log.info("{}", JSONObject.toJSONString(user1));
+    }
 }
 
