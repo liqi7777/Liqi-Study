@@ -1509,5 +1509,12 @@ public class Test {
         User user1 = JSONObject.parseObject("{\"Address\":\"Test\"}", User.class);
         log.info("{}", JSONObject.toJSONString(user1));
     }
+
+    @org.junit.Test
+    public void test65() {
+        User user = new User();
+        user.setName("liqi");
+        log.info("{}", JSONObject.toJSONString(user));
+    }
 }
 

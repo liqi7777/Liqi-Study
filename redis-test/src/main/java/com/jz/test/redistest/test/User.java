@@ -1,5 +1,6 @@
 package com.jz.test.redistest.test;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class User {
     @Builder.Default
     private Long id =1L;
 
+    @JSONField(name = "Name")
     private String name;
 
     private String address;
