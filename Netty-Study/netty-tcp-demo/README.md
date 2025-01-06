@@ -14,3 +14,8 @@
 ### 学习链接
 1. https://mp.weixin.qq.com/s/MFKWK5tNEqSmA0HWfjC4IQ  Netty+SpringBoot 打造一个 TCP 长连接通讯方案
 2. https://mp.weixin.qq.com/s/JLiz8Is-5TpZi1JnbaEAXA  Java 压缩20M文件从30秒到1秒的优化过程
+
+### 备注
+1. netty-tcp-server模块
+![img.png](img.png)
+如上图所示，有两个server写法，都可以参考，分别在server,server2两个文件夹下！
