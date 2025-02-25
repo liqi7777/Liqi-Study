@@ -1,7 +1,6 @@
 package com.jz.test.redistest.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jz.iecs.entity.DTO.LaneCoordinate;
 import lombok.Data;
 
 import java.io.Serializable;

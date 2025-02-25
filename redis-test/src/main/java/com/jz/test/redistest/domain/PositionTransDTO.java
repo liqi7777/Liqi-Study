@@ -1,6 +1,5 @@
 package com.jz.test.redistest.domain;
 
-import com.jz.iecs.entity.DTO.IecsAivVehicInfoDTO;
 import lombok.Data;
 
 import java.io.Serializable;

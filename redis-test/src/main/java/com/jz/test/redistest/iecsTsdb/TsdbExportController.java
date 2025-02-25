@@ -16,16 +16,11 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.headingdata.trans.JavaTrans;
 import com.headingdata.trans.pojos.LngLatPoint;
-import com.jz.config.apidata.ApiData;
-import com.jz.iecs.constant.VehicleConstant;
-import com.jz.iecs.entity.DTO.IecsAivVehicInfoDTO;
-import com.jz.iecs.entity.DTO.IecsRtgStateFeedbackDTO;
-import com.jz.iecs.entity.PO.TrafficSignal;
 import com.jz.test.redistest.domain.*;
 import com.jz.test.redistest.test.Test;
 import com.jz.test.redistest.util.UrlStringUtils;
 import com.jz.test.redistest.util.ZhtMapUtils;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -70,7 +65,7 @@ public class TsdbExportController {
 //    private RedisTemplate<String, Object> redisTemplate02;
 
     @GetMapping("/exportVehiclePoints")
-    @ApiOperation("导出实时计算推出的车辆定位数据")
+    @Operation(summary = "导出实时计算推出的车辆定位数据")
     public void exportVehiclePoints(String vehicleNo, String strStartTime, String strEndTime) throws Throwable {
         long startTime = DateUtil.parseDateTime(strStartTime).getTime();
         long endTime = DateUtil.parseDateTime(strEndTime).getTime();
@@ -80,7 +75,7 @@ public class TsdbExportController {
     }
 
     @GetMapping("/exportOriginVehiclePoints")
-    @ApiOperation("导出原始车辆定位数据")
+    @Operation(summary ="导出原始车辆定位数据")
     public void exportOriginVehiclePoints(@RequestParam(required = false) String vehicleNo, String strStartTime, String strEndTime) throws Throwable {
         long startTime = DateUtil.parseDateTime(strStartTime).getTime();
         long endTime = DateUtil.parseDateTime(strEndTime).getTime();
@@ -90,7 +85,7 @@ public class TsdbExportController {
     }
 
     @GetMapping("/statisticsRedisVehicles")
-    @ApiOperation("获取缓存中存在的所有车辆数据")
+    @Operation(summary ="获取缓存中存在的所有车辆数据")
     public String statisticsVehicles() throws Exception {
         Set<Object> keys = redisTemplate01.opsForHash().keys(VehicleConstant.VEHICLE_REAL_TIME_DATA);
         List<Object> objects = redisTemplate01.opsForHash().multiGet(VehicleConstant.VEHICLE_REAL_TIME_DATA, keys);
@@ -104,14 +99,14 @@ public class TsdbExportController {
     }
 
     @GetMapping("/statisticsOriginVehicles")
-    @ApiOperation("获取原始定位上报的所有车辆数据")
+    @Operation(summary ="获取原始定位上报的所有车辆数据")
     public String statisticsOriginVehicles() throws Exception {
         String machNos = statisticsOriginVehiclesTsdb();
         return machNos;
     }
 
     @GetMapping("/compareOriginRedisVehicles")
-    @ApiOperation("比较原始定位和缓存定位之间的差异车辆")
+    @Operation(summary ="比较原始定位和缓存定位之间的差异车辆")
     public String compareOriginRedisVehicles() throws Exception {
         String redisVehicles = statisticsVehicles();
         String originVehicles = statisticsOriginVehicles();
@@ -123,20 +118,20 @@ public class TsdbExportController {
 
 
     @GetMapping("/statisticsTestJSOriginVehicles")
-    @ApiOperation("获取原始定位测试车辆(JS开头)上报的所有车辆数据")
+    @Operation(summary ="获取原始定位测试车辆(JS开头)上报的所有车辆数据")
     public List<String> statisticsTestJSOriginVehicles() throws Exception {
         String machNos = statisticsOriginVehiclesTsdb();
         List<String> js = Arrays.stream(machNos.split(",")).filter(s -> s.startsWith("JS")).collect(Collectors.toList());
         return js;
     }
 
-    @ApiOperation(value = "测试某个区域、某个时间点的车辆数据的性能", notes = "测试某个区域、某个时间点的车辆数据的性能")
+    @Operation(summary = "测试某个区域、某个时间点的车辆数据的性能")
     @PostMapping("/tsdbAreaVehicle")
     public ApiData<TsdbTestAreaVehicleResDTO> tsdbTestAreaVehicle(@RequestBody @Valid TsdbTestAreaVehicleReqDTO tsdbTestAreaVehicleReqDTO) throws Exception {
         return new ApiData<>(queryPassAreaDataPoint(tsdbTestAreaVehicleReqDTO.getAreaNo(), tsdbTestAreaVehicleReqDTO.getStartTime(), tsdbTestAreaVehicleReqDTO.getEndTime(), "ITK"));
     }
 
-    @ApiOperation(value = "统计RTG一段时间的运动轨迹", notes = "统计RTG一段时间的运动轨迹")
+    @Operation(summary = "统计RTG一段时间的运动轨迹")
     @PostMapping("/statisticsRTGTrack")
     public void statisticsRTGTrack(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -180,7 +175,7 @@ public class TsdbExportController {
     }
 
 
-    @ApiOperation(value = "统计QC一段时间的运动轨迹", notes = "统计QC一段时间的运动轨迹")
+    @Operation(summary = "统计QC一段时间的运动轨迹")
     @PostMapping("/statisticsQCTrack")
     public void statisticsQCTrack(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -222,7 +217,7 @@ public class TsdbExportController {
     }
 
 
-    @ApiOperation(value = "统计RTG,QCPLC一段时间的数据", notes = "统计RTG,QCPLC一段时间的数据")
+    @Operation(summary ="统计RTG,QCPLC一段时间的数据")
     @PostMapping("/statisticsQCRTGPLC")
     public void statisticsQCRTGPLC(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -269,7 +264,7 @@ public class TsdbExportController {
     }
 
 
-    @ApiOperation(value = "统计（一天）RTG,QCPLC一段时间的数据", notes = "统计（一天）RTG,QCPLC一段时间的数据")
+    @Operation(summary = "统计（一天）RTG,QCPLC一段时间的数据")
     @PostMapping("/statisticsQCRTGPLCOneDay")
     public void statisticsQCRTGPLCOneDay(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         Long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -315,7 +310,7 @@ public class TsdbExportController {
     }
 
 
-    @ApiOperation(value = "统计车辆进出区域触发事件", notes = "统计车辆进出区域触发事件")
+    @Operation(summary = "统计车辆进出区域触发事件")
     @PostMapping("/statisticsVJCEvent")
     public void statisticsVJCEvent(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -356,7 +351,7 @@ public class TsdbExportController {
     }
 
 
-    @ApiOperation(value = "统计一段时间人员定位数据", notes = "统计一段时间人员定位数据")
+    @Operation(summary = "统计一段时间人员定位数据")
     @PostMapping("/statisticsPersonLoc")
     public void statisticsPersonLoc(@RequestBody StatisticsRTGTrackDTO statisticsRTGTrackDTO) throws Throwable {
         long startTime = DateUtil.parseDateTime(statisticsRTGTrackDTO.getStartTime()).getTime();
@@ -392,7 +387,7 @@ public class TsdbExportController {
 
 
 
-    @ApiOperation(value = "转移生产车辆定位数据到测试环境", notes = "转移生产车辆定位数据到测试环境")
+    @Operation(summary = "转移生产车辆定位数据到测试环境")
     @PostMapping("/transferVehicle")
     public ApiData transferVehicle() throws Exception {
         Map<Object, Object> entries = redisTemplate01.opsForHash().entries(VehicleConstant.VEHICLE_REAL_TIME_DATA);

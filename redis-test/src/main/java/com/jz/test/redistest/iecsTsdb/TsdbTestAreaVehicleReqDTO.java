@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,7 +18,6 @@ import java.time.LocalDateTime;
 @Data
 public class TsdbTestAreaVehicleReqDTO {
 
-    @ApiModelProperty("区域编号")
     @NotBlank(message = "区域号不能为空")
     private String areaNo;
 

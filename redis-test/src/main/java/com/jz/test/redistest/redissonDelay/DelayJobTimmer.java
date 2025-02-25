@@ -28,7 +28,7 @@ public class DelayJobTimmer {
     // todo 可以替换成Spring管理的动态线程池！
     ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
-    @PostConstruct
+    // @PostConstruct
     public void startJobTimer() {
         RBlockingQueue<DeplayJobDTO> blockingQueue =
                 client.getBlockingQueue(deleyQueueName);

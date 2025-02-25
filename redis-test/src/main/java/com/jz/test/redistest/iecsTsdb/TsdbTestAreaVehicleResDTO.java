@@ -1,6 +1,5 @@
 package com.jz.test.redistest.iecsTsdb;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,7 +9,6 @@ import lombok.Data;
 @Data
 public class TsdbTestAreaVehicleResDTO {
 
-    @ApiModelProperty("数据点数量")
     private Long dataPointNum;
 
     private Long consumeTime;

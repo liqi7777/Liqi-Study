@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -87,7 +86,6 @@ public class IecsRtgStateFeedbackDTO implements Serializable {
     //    1 正常 2-移动中 3-移动完成
     private String moveState;
 
-    @ApiModelProperty("rtg定位是否丢失 Y-是/N-否")
     private String locationLose;
 
     //大车移动状态0停止1运动

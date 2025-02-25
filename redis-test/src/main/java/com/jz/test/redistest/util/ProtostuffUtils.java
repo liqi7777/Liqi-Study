@@ -1,7 +1,7 @@
 package com.jz.test.redistest.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jz.iecs.entity.DTO.IecsAivVehicInfoDTO;
+import com.jz.test.redistest.domain.IecsAivVehicInfoDTO;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;

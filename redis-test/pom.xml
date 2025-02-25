@@ -5,7 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.10.RELEASE</version>
+<!--        <version>2.1.10.RELEASE</version>-->
+        <version>2.7.18</version>
     </parent>
     <groupId>com.redis.test</groupId>
     <artifactId>redis-test</artifactId>
@@ -44,18 +45,18 @@
     </repositories>
 
     <properties>
+        <fastjson.version>1.2.78</fastjson.version>
 <!--        <java.version>1.17</java.version>-->
         <java.version>1.8</java.version>
-
         <base.project.version>1.0.1</base.project.version>
         <iecs-domain.version>1.7.442</iecs-domain.version>
         <hutool.version>5.8.16</hutool.version>
         <coordencrypt.version>2.8.26</coordencrypt.version>
-        <spring-cloud.version>Greenwich.SR5</spring-cloud.version>
-        <spring-cloud-alibaba-dependencies.version>2.1.1.RELEASE</spring-cloud-alibaba-dependencies.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
+        <spring-cloud-alibaba-dependencies.version>2021.0.5.0</spring-cloud-alibaba-dependencies.version>
         <nacos.client.version>1.4.2</nacos.client.version>
-        <redisson.version>3.15.1</redisson.version>
-
+        <redisson.version>3.17.7</redisson.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
 
     </properties>
     <dependencyManagement>
@@ -74,15 +75,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-dependencies</artifactId>
+                <version>4.5.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
 
-        <dependency>
-            <groupId>com.jz.base</groupId>
-            <artifactId>soms-core-config</artifactId>
-            <version>${base.project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -99,19 +102,19 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>${redisson.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.redisson</groupId>
-                    <artifactId>redisson-spring-data-24</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.redisson</groupId>-->
+<!--                    <artifactId>redisson-spring-data-24</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-data-21</artifactId>
-            <version>${redisson.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson-spring-data-21</artifactId>-->
+<!--            <version>${redisson.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -139,22 +142,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.jz.base</groupId>
-            <artifactId>soms-common-domain</artifactId>
-            <version>${base.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jz.base</groupId>
-            <artifactId>soms-core-util</artifactId>
-            <version>${base.project.version}</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.jz.iecs</groupId>
-            <artifactId>soms-iecs-domain</artifactId>
-            <version>${iecs-domain.version}</version>
-        </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -245,11 +233,12 @@
             </exclusions>
         </dependency>
 
+
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.5</version>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
@@ -275,6 +264,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
         <dependency>
@@ -285,12 +275,33 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.24</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mybatis.spring.boot</groupId>-->
+<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--            <version>2.3.1</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.jsqlparser</groupId>
+                    <artifactId>jsqlparser</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.17</version>
         </dependency>
 
 
@@ -301,7 +312,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.5.3</version>
+            <version>3.5.9</version>
         </dependency>
 
 
@@ -395,6 +406,13 @@
 <!--            <type>pom</type>-->
 <!--            <scope>import</scope>-->
 <!--        </dependency>-->
+
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
 
 

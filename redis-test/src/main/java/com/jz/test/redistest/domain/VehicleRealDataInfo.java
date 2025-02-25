@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.jz.iecs.entity.DTO.VehicleTaskData;
-import com.jz.iecs.entity.PO.TrafficSignal;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

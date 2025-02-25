@@ -1,7 +1,7 @@
 package com.jz.test.redistest.util;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jz.entity.validation.ValidationGroup;
+import com.jz.test.redistest.domain.ValidationGroup;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

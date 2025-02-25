@@ -1,8 +1,8 @@
 package com.jz.test.redistest.controller;
 
 import com.jz.test.redistest.service.OrderedInsertService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/insert")
-@Api("多线程顺序处理业务，并按照顺序写入！")
+@Tag(name = "多线程顺序处理业务，并按照顺序写入！")
 public class OrderedInsertController {
     private final OrderedInsertService orderedInsertService;
 
@@ -24,7 +24,7 @@ public class OrderedInsertController {
         this.orderedInsertService = orderedInsertService;
     }
 
-    @ApiOperation("多线程顺序处理业务，并按照顺序写入！")
+    @Operation(summary = "多线程顺序处理业务，并按照顺序写入！")
     @PostMapping("/insertData")
     public String insertData() {
         List<String> dataList = Arrays.asList("data1", "data2", "data3", "data4", "data5", "data6");

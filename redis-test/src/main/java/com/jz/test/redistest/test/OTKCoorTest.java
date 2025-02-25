@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 import com.headingdata.iecs.APIService;
 import com.headingdata.iecs.beans.LaneBean;
 import com.headingdata.iecs.data.LngLat;
-import com.jz.iecs.entity.VO.IecsYardTrucksVO;
+import com.jz.test.redistest.domain.IecsYardTrucksVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;

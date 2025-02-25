@@ -1,7 +1,6 @@
 package com.jz.test.redistest.config.redisLock.aop;
 
 
-import com.jz.config.apidata.ApiData;
 import com.jz.test.redistest.config.redisLock.LockInfo;
 import com.jz.test.redistest.config.redisLock.LockKeyGenerator;
 import com.jz.test.redistest.config.redisLock.LockTemplate;

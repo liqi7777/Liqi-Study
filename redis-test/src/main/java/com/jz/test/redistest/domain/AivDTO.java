@@ -1,6 +1,5 @@
 package com.jz.test.redistest.domain;
 
-import com.jz.iecs.entity.PO.TrafficSignal;
 import lombok.Data;
 
 import java.util.List;

@@ -1,39 +1,61 @@
 package com.jz.test.redistest.config;
 
+import com.google.common.collect.Lists;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.http.HttpHeaders;
+
 
 /**
  * @author liqi
  * create  2021-10-12 16:38
  */
 @Configuration
-@EnableSwagger2
+@Slf4j
 public class Knife4jConfiguration {
 
-    @Bean(value = "defaultApi2")
-    public Docket defaultApi2() {
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder()
-                        //.title("swagger-bootstrap-ui-demo RESTful APIs")
-                        .description("# swagger-bootstrap-ui-demo RESTful APIs")
-                        .termsOfServiceUrl("http://www.xx.com/")
-                        .contact("xx@qq.com")
+    // @Bean
+    // public GlobalOpenApiCustomizer orderGlobalOpenApiCustomizer() {
+    //     return openApi -> {
+    //         // 全局添加鉴权参数
+    //         if (openApi.getPaths() != null) {
+    //             openApi.getPaths().forEach((s, pathItem) -> {
+    //                 pathItem.readOperations().forEach(operation -> {
+    //                     operation.addSecurityItem(new SecurityRequirement().addList(HttpHeaders.AUTHORIZATION));
+    //                 });
+    //             });
+    //         }
+    //
+    //     };
+    // }
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("HIT-IECS")
                         .version("1.0")
-                        .build())
-                //分组名称
-                .groupName("2.X版本")
-                .select()
-                //这里指定Controller扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.jz.test.redistest"))
-                .paths(PathSelectors.any())
-                .build();
-        return docket;
+                        .description("HIT-IECS接口文档!")
+                        .termsOfService("http://doc.xiaominfo.com")
+                        .license(new License().name("Apache 2.0")
+                                .url("http://doc.xiaominfo.com"))
+                )
+                .servers(Lists.newArrayList(
+                        new Server().url("/iecs").description("通过网关访问的服务"),
+                        new Server().url("/").description("直接访问微服务")
+                ))
+                .addSecurityItem(new SecurityRequirement().addList(HttpHeaders.AUTHORIZATION))
+                .components(new Components().addSecuritySchemes(HttpHeaders.AUTHORIZATION, new SecurityScheme()
+                        .name(HttpHeaders.AUTHORIZATION).type(SecurityScheme.Type.HTTP).scheme("bearer")));
     }
+
 }

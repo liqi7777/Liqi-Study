@@ -1,7 +1,5 @@
 package com.jz.test.redistest.test;
 
-import com.jz.iecs.entity.DTO.RoadPlanningDTO;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -97,8 +95,6 @@ public class IecsATerSelectTaskVO implements Serializable {
 
         private String mdDistance;
 
-        private List<RoadPlanningDTO> roadPlanning;
-        /*private List<terLocation> roadPlanning;*/
 
         //空重类型(1空车2重车)
         private Long oisOpinstrSeq;
@@ -246,7 +242,6 @@ public class IecsATerSelectTaskVO implements Serializable {
                 Objects.equals(cntrPlaceState, that.cntrPlaceState) &&
                 Objects.equals(cntrLoadState, that.cntrLoadState) &&
                 Objects.equals(mdDistance, that.mdDistance) &&
-                Objects.equals(roadPlanning, that.roadPlanning) &&
                 Objects.equals(oisOpinstrSeq, that.oisOpinstrSeq) &&
                 Objects.equals(taskSerial, that.taskSerial) &&
                 Objects.equals(oisOpinstrid, that.oisOpinstrid) &&
@@ -287,6 +282,6 @@ public class IecsATerSelectTaskVO implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pid, machNo, machType, resultHost, resultPort, taskId, taskStatus, operationCode, workingMode, timeLimit, containerWeight, containerNo, containerSize, containerType, ccsLocation, loadLastTime, unloadLastTime, containerForm, containerWorkType, containerSpace, nextPath, endNodeId, inchingDistance, taskStart, taskLastStartTime, taskEnd, taskLastEndTime, cntrAreaLane, roadInfo, trafficLights, jwRoad, surroundCarInfo, rtgLocationInfo, oisYlocation, oisVlocation, cntrPlaceState, cntrLoadState, mdDistance, roadPlanning, oisOpinstrSeq, taskSerial, oisOpinstrid, tosTaskId, operationStatus, taskType, soaTaskType, curTime, oisVcwId, oisRelId, oisTwoTaskId, taskWorkSerial, qcWorkLaneNo, targetPosition, oisLock, oisContainerSpace2, oisContainerWeight2, oisContainerSize2, oisContainerType2, oisLock2, oisYlocation2, oisVlocation2, oisIycCntrid2, oisVpcCntrid2, oisOpinstrid2, oisMLoc, oisCntrSeq, oisCntrCount, oisCntrNo2, updateFieldName, oisTaskCntrSpace, curWorkPosition, enableShowAllPath, enableSecondIssue, oisWkFlow, shipNo);
+        return Objects.hash(pid, machNo, machType, resultHost, resultPort, taskId, taskStatus, operationCode, workingMode, timeLimit, containerWeight, containerNo, containerSize, containerType, ccsLocation, loadLastTime, unloadLastTime, containerForm, containerWorkType, containerSpace, nextPath, endNodeId, inchingDistance, taskStart, taskLastStartTime, taskEnd, taskLastEndTime, cntrAreaLane, roadInfo, trafficLights, jwRoad, surroundCarInfo, rtgLocationInfo, oisYlocation, oisVlocation, cntrPlaceState, cntrLoadState, mdDistance, oisOpinstrSeq, taskSerial, oisOpinstrid, tosTaskId, operationStatus, taskType, soaTaskType, curTime, oisVcwId, oisRelId, oisTwoTaskId, taskWorkSerial, qcWorkLaneNo, targetPosition, oisLock, oisContainerSpace2, oisContainerWeight2, oisContainerSize2, oisContainerType2, oisLock2, oisYlocation2, oisVlocation2, oisIycCntrid2, oisVpcCntrid2, oisOpinstrid2, oisMLoc, oisCntrSeq, oisCntrCount, oisCntrNo2, updateFieldName, oisTaskCntrSpace, curWorkPosition, enableShowAllPath, enableSecondIssue, oisWkFlow, shipNo);
     }
 }
