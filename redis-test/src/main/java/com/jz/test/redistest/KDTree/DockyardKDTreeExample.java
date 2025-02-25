@@ -66,10 +66,10 @@ class KDTreeNode {
     }
 }
 
-class KDTree {
+class KDTreeInner {
     KDTreeNode root;
 
-    KDTree(List<Point> points) {
+    KDTreeInner(List<Point> points) {
         root = buildKDTree(points, 0);
     }
 
@@ -155,7 +155,7 @@ public class DockyardKDTreeExample {
         bayPositions.add(new Point(7.0, 8.0));
         bayPositions.add(new Point(9.0, 10.0));
 
-        KDTree kdTree = new KDTree(bayPositions);
+        KDTreeInner kdTree = new KDTreeInner(bayPositions);
 
         // 假设这是车辆的当前位置
         Point vehiclePosition = new Point(2.5, 3.5);

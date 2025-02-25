@@ -13,7 +13,7 @@ import org.junit.Test;
  * Tests based on kddemo.java examples
  */
 @Slf4j
-public class KDTreeTest {
+public class KDTreeInnerTest {
 
     private double[] A = {2, 5};
     private double[] B = {1, 1};
