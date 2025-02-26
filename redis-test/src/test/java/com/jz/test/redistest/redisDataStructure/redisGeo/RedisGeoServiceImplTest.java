@@ -1,5 +1,7 @@
 package com.jz.test.redistest.redisDataStructure.redisGeo;
 
+import com.alibaba.fastjson.JSONObject;
+import com.jz.test.redistest.redisDataStructure.redisBitMap.Result;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -24,4 +26,12 @@ public class RedisGeoServiceImplTest {
     public void testLoadShopData() {
         redisGeoService.loadShopData();
     }
+
+    @Test
+    public void testQueryShopByType() {
+        Result result = redisGeoService.queryShopByType(1, 0, 120.149192d, 30.316078d);
+        System.out.println(JSONObject.toJSONString(result));
+    }
+
+
 }
